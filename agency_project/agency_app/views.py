@@ -34,7 +34,7 @@ class JobsViewSet(ModelViewSet):
     def apply(self, request, pk=None):
         job = self.get_object()
         candidate_id = request.data.get("candidate")
-        if candidate_id is None or not Candidate.objects.filter(pk=candidate_id).exists():
+        if candidate_id is None or not Candidate.objects.filter(pk=candidate_id).exists() or not int:
             return Response("Please, write a valid data.", status=status.HTTP_400_BAD_REQUEST)
         candidate = Candidate.objects.get(pk=candidate_id)
         if candidate not in job.candidate.all():
